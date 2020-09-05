@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+yum update -y
+yum install -y container-selinux selinux-policy-base
+rpm -i https://rpm.rancher.io/k3s-selinux-0.1.1-rc1.el7.noarch.rpm
+curl -sfL https://get.k3s.io | sh -
+dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+
+DOCKERVERSION=$(dnf list docker-ce --showduplicates | \
+sort -r | \
+grep "docker-ce.x86_64" -m1 | \
+sed -e 's/docker\-ce\.x86\_64//g' -e 's/docker\-ce\-stable//g' | \
+tr -d [:space:])
+dnf install --nobest docker-ce -y
