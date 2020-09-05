@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+if [ -f /etc/hardening-module.lock ]; then
+  echo "Found /etc/hardening-module.lock, exiting"
+  exit 0
+else
+  echo "# Require the root pw when booting into single user mode" >> /etc/inittab
+  echo "~~:S:wait:/sbin/sulogin" >> /etc/inittab
+  echo "Don't allow control alt del to shutdown the box..."
+  perl -npe 's/ca::ctrlaltdel:\/sbin\/shutdown/#ca::ctrlaltdel:\/sbin\/shutdown/' -i /etc/inittab
+  echo "Disabling USB Mass Storage"
+  echo "blacklist usb-storage" > /etc/modprobe.d/blacklist-usbstorage
+  echo "tty1" > /etc/securetty
+  echo "Passwords expire every 180 days"
+  perl -npe 's/PASS_MAX_DAYS\s+99999/PASS_MAX_DAYS 180/' -i /etc/login.defs
+  echo "Passwords may only be changed once a day"
+  perl -npe 's/PASS_MIN_DAYS\s+0/PASS_MIN_DAYS 1/g' -i /etc/login.defs
+  perl -npe 's/umask\s+0\d2/umask 077/g' -i /etc/bashrc
+  perl -npe 's/umask\s+0\d2/umask 077/g' -i /etc/csh.cshrc
+  for i in $(find /lib/modules/$(uname -r)/kernel/drivers/net/wireless -name "*.ko" -type f);
+    do echo blacklist $i >> /etc/modprobe.d/blacklist-wireless ; 
+  done
+  systemctl enable firewalld || yum install -y firewalld && systemctl enable firewalld
+  echo $(date +'%m-%d-%y:%M:%S') > /var/tmp/hardening-module.lock
+fi
