@@ -12,3 +12,13 @@ grep "docker-ce.x86_64" -m1 | \
 sed -e 's/docker\-ce\.x86\_64//g' -e 's/docker\-ce\-stable//g' | \
 tr -d [:space:])
 dnf install --nobest docker-ce -y
+
+echo
+echo "node token:"
+cat /var/lib/rancher/k3s/server/node-token
+echo
+echo "on the next node do, subsituting the token and url here with the server token above and the URL/IP for this node:"
+echo "k3s_url="https://k3s-master:6443""
+echo "k3s_token="K1042e2f8e353b9409472c1e0cca8457abe184dc7be3f0805109e92c50c193ceb42::node:c83acbf89a7de7026d6f6928dc270028""
+echo "curl -sfL https://get.k3s.io | K3S_URL=${k3s_url} K3S_TOKEN=${k3s_token} sh -"
+echo
