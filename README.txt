@@ -6,7 +6,7 @@ It doesn't mean that you only have one VM, but only 1 VM on prem is required. Pr
 
 Run a private local VM that interacts other servers and with the internet to create and manage kubernetes and VMs deployed across the world.
 
-CentOS 8 EPEL - gui or not
+CentOS 8 EPEL - "standard server" from CentOS 8 installer, gui or not, that will be modified by the scripts in this repo to use EPEL, docker, k3a, wazuh, and tuned for security and tooling. Doing a GUI for this device would be justified if the admins might want a web browser for accessing kibana or prometheus etc. Or perhaps just for web searching etc. This is a workstation after all, not a server per se, so GUIs can make sense in many cases for this "edge workstation" concept. 
 
 recommended min provisioning:
 25 GB disk
