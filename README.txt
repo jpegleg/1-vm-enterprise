@@ -33,3 +33,4 @@ Software:
 - wazuh ossec manager
 - git
 - vim
+- tmux
