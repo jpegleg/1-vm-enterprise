@@ -8,7 +8,7 @@ CentOS 8 EPEL - server with GUI from install menu
 
 recommended min provisioning:
 25 GB disk
-8 vcores
+2 vcores
 8 GB RAM
 
 recommended standard business provisioning:
