@@ -31,3 +31,5 @@ Software:
 - selinux
 - clamd
 - wazuh ossec manager
+- git
+- vim
