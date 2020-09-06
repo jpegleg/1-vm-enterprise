@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+yum install -y epel-release
+yum install -y ansible git vim sec clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
+
+systemctl disable sec
+
+rpm --import https://packages.wazuh.com/key/GPG-KEY-WAZUH
+
+cat > /etc/yum.repos.d/wazuh.repo <<\EOF
+[wazuh_repo]
+gpgcheck=1
+gpgkey=https://packages.wazuh.com/key/GPG-KEY-WAZUH
+enabled=1
+name=Wazuh repository
+baseurl=https://packages.wazuh.com/3.x/yum/
+protect=1
+EOF
+
+yum install wazuh-manager
+
+systemctl enable wazuh-manager
+
+freshclam &
+
+cp clamd.service /etc/systemd/system/clamd.service
+cp clamscan.conf /etc/clamd.d/scan.conf
+
+systemctl enable clamd.service --now
+
