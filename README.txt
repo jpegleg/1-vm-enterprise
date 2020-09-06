@@ -2,6 +2,8 @@
 
 Template for a cloud edge CentOS 8 virtual workstation machine. 
 
+It doesn't mean that you only have one VM, but only 1 VM on prem is required. Production runs elsewhere.
+
 Run a private local VM that interacts other servers and with the internet to create and manage kubernetes and VMs deployed across the world.
 
 CentOS 8 EPEL - server with GUI from install menu 
