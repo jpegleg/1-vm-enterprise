@@ -25,3 +25,4 @@ Software:
 - firewalld
 - selinux
 - clamd
+- wazuh ossec manager
