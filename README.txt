@@ -6,7 +6,7 @@ It doesn't mean that you only have one VM, but only 1 VM on prem is required. Pr
 
 Run a private local VM that interacts other servers and with the internet to create and manage kubernetes and VMs deployed across the world.
 
-CentOS 8 EPEL - server with GUI from install menu 
+CentOS 8 EPEL - gui or not
 
 recommended min provisioning:
 25 GB disk
