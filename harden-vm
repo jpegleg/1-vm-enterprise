@@ -19,6 +19,14 @@ else
   perl -npe 's/umask\s+0\d2/umask 077/g' -i /etc/csh.cshrc
   echo "prevent non-root from kernel message access"
   sysctl -w kernel.dmesg_restrict=1
+  echo "allowing the things we need for debian docker images"
+  firewall-cmd --zone=public --add-masquerade --permanent
+  firewall-cmd --zone=public --add-port=80/tcp --permanent
+  firewall-cmd --zone=public --add-port=443/tcp --permanent
+  echo "allowing the product port"
+  firewall-cmd --zone=public --add-port=30448/tcp --permanent
+  firewall-cmd --zone=public --add-port=30028/tcp --permanent
+  firewall-cmd --reload
   for i in $(find /lib/modules/$(uname -r)/kernel/drivers/net/wireless -name "*.ko" -type f);
     do echo blacklist $i >> /etc/modprobe.d/blacklist-wireless ; 
   done
