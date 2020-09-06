@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 yum install -y epel-release
-yum install -y ansible git vim sec clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
+yum install -y ansible tmux git vim sec clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
 
 systemctl disable sec
 
