@@ -38,5 +38,8 @@ Software:
 - git
 - vim
 - tmux
+- nethogs
+- iotop
+
 
 Restricting access to cloud administrative features is critical. The idea is to design those services so that the administrative components have minimum required access to function. With selinux and firewalld, locally, and then other firewalls and controls on each cloud instance only allowing from the authorized hardened workstations.
