@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+greenline () {
+  val=$(tput cols);
+  x=1;
+  while [ $x -le $val ]; do
+    echo -en "\e[32m■\e[0m";
+    x=$((x+1));
+  done;
+}
+
 if [ -f /etc/hardening-module.lock ]; then
   echo "Found /etc/hardening-module.lock, exiting"
   exit 0
@@ -29,4 +38,9 @@ else
   done
   systemctl enable firewalld || yum install -y firewalld && systemctl enable firewalld
   echo $(date +'%m-%d-%y:%M:%S') > /var/tmp/hardening-module.lock
+  greenline
+  echo
+  echo -e "\e[1;32mHardening run complete. Lock file created at \e[1;36m $(ls -larth /var/tmp/hardening-module.lock)\e[0m $(cat /var/tmp/hardening-module.lock)"
+  echo
+  echo
 fi
