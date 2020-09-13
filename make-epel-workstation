@@ -35,7 +35,7 @@ baseurl=https://packages.wazuh.com/3.x/yum/
 protect=1
 EOF
 
-yum install wazuh-manager
+yum install -y wazuh-manager
 
 systemctl enable wazuh-manager
 
