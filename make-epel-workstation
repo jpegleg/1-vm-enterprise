@@ -40,7 +40,7 @@ yum install -y wazuh-manager
 systemctl enable wazuh-manager
 
 cp clamd.service /etc/systemd/system/clamd.service
-cp clamscan.conf /etc/clamd.d/scan.conf
+cp scan.conf /etc/clamd.d/scan.conf
 
 echo "updating virus database"
 echo "if you haven't run a freshclam yet this could take a while, running freshclam now..."
