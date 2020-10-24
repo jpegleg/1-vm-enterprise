@@ -1,0 +1,52 @@
+---
+-
+  hosts: el8workstation
+  tasks:
+
+  - name: upgrade all packages
+    yum:
+      name: '*'
+      state: latest
+    tags:
+       - upgrade8
+
+  - name: install git
+    yum:
+      name: 'git'
+      state: latest
+    tags:
+       - install_git
+
+  - name: install tar
+    yum:
+      name: 'tar'
+      state: latest
+    tags:
+       - install_tar
+
+  - name: deploy tarball
+    copy:
+      src: build.tgz
+      dest: /var/tmp/build.tgz
+      owner: root
+      group: root
+      mode: '0644'
+    tags:
+       - tarball_deploy
+
+  - name: unpack tarball
+    shell: cd /var/tmp/ && tar xzvf build.tgz
+    tags:
+       - extract_tarball
+
+  - name: execute build
+    shell: cd /var/tmp && chmod +x make-epel-workstation && ./make-epel-workstation
+    tags:
+       - build
+
+  - name: harden module
+    shell: cd /var/tmp/ && chmod +x harden-vm && ./harden-vm
+    tags:
+       - harden
+
+...
