@@ -47,3 +47,13 @@ Restricting access to cloud administrative features is critical. The idea is to 
 
 I set mine to do automatic updates at 6 AM and reboot if it wants to to keep the kernel and glibc on latest. I'm currently running pure docker as well as k3 deployments locally on the workstation for local tinkering and problem solving, that is not connected to the prod or qa clouds. Then I'm using the terminal and firefox/tor/vpns on on the workstation itself to access cloud web apis and dashboards, browser interactions with cloud vendors and vps providers, etc. I work on restricting and firewalling between the workstion and production cloud, so that there are only functionally minimum allowed ways to access the prod cloud apis.
 
+
+### Ansible deployment
+
+# customize your files and configs as needed, then while in the dir with make-epel-workstation and the other files:
+
+tar czvf build.tgz ./*
+
+ansible-playbook -u root -i hosts.inventory make-epel-workstation.yml
+
+## note that if your centos 8 image doesn't have python or the expected yum package, you will need to install those before the ansible run
