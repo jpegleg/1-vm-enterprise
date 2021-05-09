@@ -29,7 +29,7 @@ else
   echo "prevent non-root from kernel message access"
   sysctl -w kernel.dmesg_restrict=1
   echo "allowing 22, 80, and 443, and masquerade for pulling down docker images"
-  firewall-cmd --zone=public --add-masquerade --permanent || dnf install -y firewalld 
+  firewall-cmd --zone=public --add-masquerade --permanent || dnf install -y firewalld && firewall-cmd --zone=public --add-masquerade --permanent
   firewall-cmd --zone=public --add-port=22/tcp --permanent
   firewall-cmd --zone=public --add-port=80/tcp --permanent
   firewall-cmd --zone=public --add-port=443/tcp --permanent
