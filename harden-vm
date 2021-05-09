@@ -13,6 +13,8 @@ if [ -f /etc/hardening-module.lock ]; then
   echo "Found /etc/hardening-module.lock, exiting"
   exit 0
 else
+  echo "Disable ptrace syscall. Will require reboot to load."
+  echo 3 > /proc/sys/kernel/yama/ptrace_scope
   echo "# Require the root pw when booting into single user mode" >> /etc/inittab
   echo "~~:S:wait:/sbin/sulogin" >> /etc/inittab
   echo "Don't allow control alt del to shutdown the box..."
