@@ -18,8 +18,8 @@ echo
 linesx
 echo
 
-yum install -y epel-release
-yum install -y ansible tmux iotop nethogs git vim sec clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
+dnf install -y epel-release
+dnf install -y ansible tmux iotop nethogs git vim sec clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
 
 systemctl disable sec
 
@@ -35,7 +35,7 @@ baseurl=https://packages.wazuh.com/3.x/yum/
 protect=1
 EOF
 
-yum install -y wazuh-manager
+dnf install -y wazuh-manager
 
 systemctl enable wazuh-manager
 
@@ -49,4 +49,3 @@ systemctl enable clamd.service --now && linesx
 echo 
 echo "Complete."
 echo
-
