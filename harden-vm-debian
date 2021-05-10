@@ -35,7 +35,7 @@ else
   ufw allow 22/tcp || apt-get install ufw -y && ufw-allow 22/tcp
   ufw allow 80/tcp
   ufw allow 443/tcp
-  ufw enable && ufw reload
+  yes | ufw enable && ufw reload
   for i in $(find /lib/modules/$(uname -r)/kernel/drivers/net/wireless -name "*.ko" -type f);
     do echo blacklist $i >> /etc/modprobe.d/blacklist-wireless ;
   done
