@@ -57,3 +57,15 @@ tar czvf build.tgz ./*
 ansible-playbook -u root -i hosts.inventory make-epel-workstation.yml
 
 ## note that if your centos 8 image doesn't have python or the expected yum package, you will need to install those before the ansible run
+
+
+#### Setting the lock
+
+mv /var/tmp/hardening-module.lock /etc/hardening-module.lock
+
+This will prevent the harden script from executing again until the /etc/hardening-module.lock file is removed.
+
+#### Debian-based usage (WIP)
+
+There is now  harden-vm-debian script that can be used on debian-based systems with ufw instead of firewalld.
+Debian compatibility/compontents are a work in progress and will be added TBD.
