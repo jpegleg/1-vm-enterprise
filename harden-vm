@@ -14,6 +14,7 @@ if [ -f /etc/hardening-module.lock ]; then
   exit 0
 else
   echo "Disable ptrace syscall."
+  echo "kernel.yama.trace_scope = 3" > /etc/sysctl.d/10-ptrace.conf
   echo 3 > /proc/sys/kernel/yama/ptrace_scope
   echo "# Require the root pw when booting into single user mode" >> /etc/inittab
   echo "~~:S:wait:/sbin/sulogin" >> /etc/inittab
