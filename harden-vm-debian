@@ -32,7 +32,7 @@ else
   echo "prevent non-root from kernel message access"
   sysctl -w kernel.dmesg_restrict=1
   echo "allowing 22, 80, and 443, and masquerade for pulling down docker images"
-  ufw allow 22/tcp || apt-get install ufw -y && ufw-allow 22/tcp
+  ufw allow 22/tcp || apt-get install ufw -y && ufw allow 22/tcp
   ufw allow 80/tcp
   ufw allow 443/tcp
   yes | ufw enable && ufw reload
