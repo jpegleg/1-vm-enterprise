@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+greenline () {
+  val=$(tput cols);
+  x=1;
+  while [ $x -le $val ]; do
+    echo -en "\e[32m■\e[0m";
+    x=$((x+1));
+  done;
+}
+
+if [ -f /etc/hardening-module.lock ]; then
+  echo "Found /etc/hardening-module.lock, exiting"
+  exit 0
+else
+  echo "Disable ptrace syscall."
+  echo "kernel.yama.trace_scope = 3" > /etc/sysctl.d/10-ptrace.conf
+  echo 3 > /proc/sys/kernel/yama/ptrace_scope
+  echo "# Require the root pw when booting into single user mode" >> /etc/inittab
+  echo "~~:S:wait:/sbin/sulogin" >> /etc/inittab
+  echo "Don't allow control alt del to shutdown the box..."
+  perl -npe 's/ca::ctrlaltdel:\/sbin\/shutdown/#ca::ctrlaltdel:\/sbin\/shutdown/' -i /etc/inittab
+  echo "Disabling USB Mass Storage"
+  echo "blacklist usb-storage" > /etc/modprobe.d/blacklist-usbstorage
+  echo "tty1" > /etc/securetty
+  echo "Passwords expire every 180 days"
+  perl -npe 's/PASS_MAX_DAYS\s+99999/PASS_MAX_DAYS 180/' -i /etc/login.defs
+  echo "Passwords may only be changed once a day"
+  perl -npe 's/PASS_MIN_DAYS\s+0/PASS_MIN_DAYS 1/g' -i /etc/login.defs
+  perl -npe 's/umask\s+0\d2/umask 077/g' -i /etc/bashrc 2>/dev/null 
+  perl -npe 's/umask\s+0\d2/umask 077/g' -i /etc/csh.cshrc 2>/dev/null
+  echo "prevent non-root from kernel message access"
+  sysctl -w kernel.dmesg_restrict=1
+  echo "allowing 22, 80, and 443, and masquerade for pulling down docker images"
+  ufw allow 22/tcp || apt-get install ufw -y && ufw-allow 22/tcp
+  ufw allow 80/tcp
+  ufw allow 443/tcp
+  ufw enable && ufw reload
+  for i in $(find /lib/modules/$(uname -r)/kernel/drivers/net/wireless -name "*.ko" -type f);
+    do echo blacklist $i >> /etc/modprobe.d/blacklist-wireless ;
+  done
+  echo $(date +'%m-%d-%y:%M:%S') > /var/tmp/hardening-module.lock
+  greenline
+  echo
+  echo -e "\e[1;32mHardening run complete. Lock file created at \e[1;36m $(ls -larth /var/tmp/hardening-module.lock)\e[0m $(cat /var/tmp/hardening-module.lock)"
+  echo
+  echo
+fi
