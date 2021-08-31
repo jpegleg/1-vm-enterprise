@@ -13,6 +13,10 @@ if [ -f /etc/hardening-module.lock ]; then
   echo "Found /etc/hardening-module.lock, exiting"
   exit 0
 else
+  echo "Installing AppArmor tools"
+  apt-get install -y apparmor-easyprof apparmor-notify apparmor-utils apparmor
+  #echo "setting rate limit"
+  #sysctl -w kernel.printk_ratelimit=0
   echo "Disable ptrace syscall."
   echo "kernel.yama.trace_scope = 3" > /etc/sysctl.d/10-ptrace.conf
   echo 3 > /proc/sys/kernel/yama/ptrace_scope
