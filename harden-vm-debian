@@ -14,7 +14,7 @@ if [ -f /etc/hardening-module.lock ]; then
   exit 0
 else
   echo "Installing AppArmor tools"
-  apt-get install -y apparmor-easyprof apparmor-notify apparmor-utils apparmor
+  apt-get install -y apparmor-easyprof apparmor-notify apparmor-utils apparmor auditd
   #echo "setting rate limit"
   #sysctl -w kernel.printk_ratelimit=0
   echo "Disable ptrace syscall."
