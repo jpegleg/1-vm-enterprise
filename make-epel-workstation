@@ -19,7 +19,7 @@ linesx
 echo
 
 dnf install -y epel-release
-dnf install -y auditd ansible policycoreutils-python python3-policycoreutils policycoreutils-devel policycoreutils-python-utils tmux iotop nethogs git vim sec clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
+dnf install -y audit ansible policycoreutils-python python3-policycoreutils policycoreutils-devel policycoreutils-python-utils tmux iotop nethogs git vim sec clamav-server clamav-data clamav-update clamav-filesystem clamav clamav-scanner-systemd clamav-devel clamav-lib clamav-server-systemd
 
 systemctl disable sec
 
