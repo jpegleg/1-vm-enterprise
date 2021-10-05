@@ -69,3 +69,6 @@ This will prevent the harden script from executing again until the /etc/hardenin
 
 There is now  harden-vm-debian script that can be used on debian-based systems with ufw instead of firewalld.
 Debian compatibility/compontents are a work in progress and will be added TBD.
+
+Also see https://github.com/jpegleg/deb_hardener
+
